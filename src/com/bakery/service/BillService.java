@@ -1,0 +1,81 @@
+package src.com.bakery.service;
+
+import java.util.Date;
+
+import javax.swing.text.Utilities;
+
+import src.com.bakery.model.*;
+import src.com.bakery.utility.TraceLog;
+import src.com.bakery.utility.Utility;
+
+public class BillService {
+    private double totalRevenue = 0;
+    public double getTotalRevenue() {
+        return totalRevenue;
+    }
+    Bill [] bill = new Bill[10000];
+    int billNumber = 0;
+
+    public void generateBill(MyCartService myCartService){
+        if(myCartService.itemCount == 0 ){
+            printEmptyBill();
+            return;
+        }
+
+        String name = Utility.getStringInput( "Customer name");
+        Date date  = new Date();
+        TraceLog.info(Utility.printCurrentLine(), "==============================invoice=======================================");
+        TraceLog.info(Utility.printCurrentLine(), "Cusstomer Name: "+ name);
+        TraceLog.info(Utility.printCurrentLine(), "Date: "+ date);
+        TraceLog.info(Utility.printCurrentLine(), "============================================================================");
+        double sum = 0 ; 
+        String sr =  "SrNo";
+        String productName =  "Product Name";
+        String qty =  "Qty";
+        String rate =  "Rate";
+        String amt =  "Amount";
+        String total =  "Grand Total";
+        String header =  "|"+sr +        
+                        "|"+" ".repeat(3) + productName + 
+                        "|"+" ".repeat(1) + qty 
+                        +"|"+ rate 
+                        +"|"+ amt +"|";
+        TraceLog.info(Utility.printCurrentLine(), header);
+        TraceLog.info(Utility.printCurrentLine(), "-".repeat(header.length()));
+        for(int i =0 ; i<myCartService.itemCount; i++){
+
+            Cart currentCart = myCartService.cart[i];
+            double amount = currentCart.getProduct().getPrice() * currentCart.getMyQuantity();
+            int billInd = billNumber;
+            bill[billInd] = new Bill(++billNumber , name, myCartService.cart[i].getMyQuantity(), myCartService.cart[i],amount);
+            sum += amount ;
+            printCurrectProductDetails(i+1+"", currentCart.getProduct().getName()+"", currentCart.getMyQuantity()+"", currentCart.getProduct().getPrice()+"", amount+"");
+            myCartService.cart[i] = null;
+        }
+
+        TraceLog.info(Utility.printCurrentLine(), "===================");
+        TraceLog.info(Utility.printCurrentLine(),  total +" : "+ sum);
+        TraceLog.info(Utility.printCurrentLine(), "===================");
+        totalRevenue += sum;
+        
+        TraceLog.info(Utility.printCurrentLine(), "==============================invoice======================================");
+        myCartService.itemCount = 0 ;
+    }
+
+    public void printEmptyBill(){
+        TraceLog.info(Utility.printCurrentLine(),".... Cart in empty ....");
+    }
+
+    //4| 15| 4 | 4 | 6 |
+    public void printCurrectProductDetails(String i, String productName, String qty, String rate, String amt){
+        String s = " ".repeat(4-i.length()) + i;
+        String p =  " ".repeat(15-productName.length()) + productName;
+        String q =  " ".repeat(4-qty.length()) + qty;
+        String r =  " ".repeat(4-rate.length()) + rate;
+        String a =  amt;
+        TraceLog.info(Utility.printCurrentLine(), "|"+s+"|"+p+"|"+q+"|"+r+"|"+a+"|");
+    }
+
+    
+
+}
