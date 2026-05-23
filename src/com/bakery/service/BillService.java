@@ -13,11 +13,10 @@ public class BillService {
     public double getTotalRevenue() {
         return totalRevenue;
     }
-    Bill [] bill = new Bill[10000];
-    int billNumber = 0;
+    
 
     public void generateBill(MyCartService myCartService){
-        if(myCartService.itemCount == 0 ){
+        if(DatabaseService.itemCount == 0 ){
             printEmptyBill();
             return;
         }
@@ -25,7 +24,7 @@ public class BillService {
         String name = Utility.getStringInput( "Customer name");
         Date date  = new Date();
         TraceLog.info(Utility.printCurrentLine(), "==============================invoice=======================================");
-        TraceLog.info(Utility.printCurrentLine(), "Cusstomer Name: "+ name);
+        TraceLog.info(Utility.printCurrentLine(), "Customer Name: "+ name);
         TraceLog.info(Utility.printCurrentLine(), "Date: "+ date);
         TraceLog.info(Utility.printCurrentLine(), "============================================================================");
         double sum = 0 ; 
@@ -42,15 +41,15 @@ public class BillService {
                         +"|"+ amt +"|";
         TraceLog.info(Utility.printCurrentLine(), header);
         TraceLog.info(Utility.printCurrentLine(), "-".repeat(header.length()));
-        for(int i =0 ; i<myCartService.itemCount; i++){
+        for(int i =0 ; i<DatabaseService.itemCount; i++){
 
-            Cart currentCart = myCartService.cart[i];
+            Cart currentCart = DatabaseService.cart[i];
             double amount = currentCart.getProduct().getPrice() * currentCart.getMyQuantity();
-            int billInd = billNumber;
-            bill[billInd] = new Bill(++billNumber , name, myCartService.cart[i].getMyQuantity(), myCartService.cart[i],amount);
+            int billInd = DatabaseService.billNumber;
+            DatabaseService.bill[billInd] = new Bill(++DatabaseService.billNumber , name, DatabaseService.cart[i].getMyQuantity(), DatabaseService.cart[i].getProduct(),amount);
             sum += amount ;
             printCurrectProductDetails(i+1+"", currentCart.getProduct().getName()+"", currentCart.getMyQuantity()+"", currentCart.getProduct().getPrice()+"", amount+"");
-            myCartService.cart[i] = null;
+            DatabaseService.cart[i] = null;
         }
 
         TraceLog.info(Utility.printCurrentLine(), "===================");
@@ -59,7 +58,7 @@ public class BillService {
         totalRevenue += sum;
         
         TraceLog.info(Utility.printCurrentLine(), "==============================invoice======================================");
-        myCartService.itemCount = 0 ;
+        DatabaseService.itemCount = 0 ;
     }
 
     public void printEmptyBill(){

@@ -2,6 +2,7 @@ package src.com.bakery.controller;
 
 import src.com.bakery.service.Authentication;
 import src.com.bakery.service.BillService;
+import src.com.bakery.service.DatabaseService;
 import src.com.bakery.service.MyCartService;
 import src.com.bakery.service.StockManagement;
 import src.com.bakery.utility.TraceLog;
@@ -9,6 +10,7 @@ import src.com.bakery.utility.Utility;
 
 public class BakeryController {
     public static void main(String[] args) {
+        DatabaseService.createTables();
         Authentication auth = new Authentication();
         StockManagement stock = new StockManagement();
         MyCartService myCart = new MyCartService();

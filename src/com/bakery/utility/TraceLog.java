@@ -11,6 +11,15 @@ public class TraceLog {
         // System.out.println("log.info --> [--- " + metaInfo + " ---] : " + message );
         System.out.println("log.info-[" + metaInfo + "]: " + message );
     }
+    public static void info_WO_ln(String metaInfo , String message) {
+        if(message == null ) message = "";
+        if (metaInfo == null) metaInfo = " ";
+        if (metaInfo != null) metaInfo = metaInfo + " ".repeat(indentation - metaInfo.length());
+
+        // System.out.println("log.info -->" + metaInfo + " ====================== "+ message);
+        // System.out.println("log.info --> [--- " + metaInfo + " ---] : " + message );
+        System.out.print("log.info-[" + metaInfo + "]: " + message );
+    }
 
     public static void info(String metaInfo , String message, int [] arr) {
         if(message == null ) message = "";

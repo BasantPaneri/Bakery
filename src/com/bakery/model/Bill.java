@@ -4,7 +4,7 @@ public class Bill {
     private int id;
     private String customerName;
     private int quantity;
-    private Cart cart;
+    private Products product;
     private double amount;
 
     public double getAmount() {
@@ -14,24 +14,21 @@ public class Bill {
         this.amount = amount;
     }
     Bill(){}
-    public Bill(int id, String customerName, int quantity, Cart cart, double amount) {
+    public Bill(int id, String customerName, int quantity, Products product, double amount) {
         this.id = id;
         this.customerName = customerName;
         this.quantity = quantity;
-        this.cart = cart;
+        this.product = product;
         this.amount = amount;
+    }
+    public Products getProduct() {
+        return product;
     }
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
-    }
-    public Cart getCart() {
-        return cart;
-    }
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
     public String getCustomerName() {
         return customerName;

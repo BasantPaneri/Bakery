@@ -6,8 +6,7 @@ import src.com.bakery.utility.TraceLog;
 import src.com.bakery.utility.Utility;
 
 public class MyCartService {
-    Cart cart[] = new Cart[10];
-    int itemCount = 0;
+    
 
     public String addToCart(StockManagement stock){
         String addedItem = Utility.getStringInput("name of product you want to add: ");
@@ -25,7 +24,7 @@ public class MyCartService {
         }
         if(p != null){
             int quantityPicked = getAvavilableProduct( p, itemQuantity);
-            cart[itemCount++] = new Cart(p, quantityPicked);
+            DatabaseService.cart[DatabaseService.itemCount++] = new Cart(p, quantityPicked);
             TraceLog.info(Utility.printCurrentLine(),quantityPicked + " "+ products[i].getName()+" added");
             return products[i].getName();
         }
@@ -48,13 +47,13 @@ public class MyCartService {
     }
 
     public void showCart(){
-        if(itemCount == 0){
+        if(DatabaseService.itemCount == 0){
             TraceLog.info(Utility.printCurrentLine(), "Cart is empty.");
             return;
         }
         TraceLog.info(Utility.printCurrentLine() , "srNo.  |      item     | quantity");
         int i = 1;
-        for (Cart c :this.cart) {
+        for (Cart c :DatabaseService.cart) {
             if(c == null){
                 continue;
             }
