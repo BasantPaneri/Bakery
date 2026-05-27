@@ -28,12 +28,12 @@ public class BakeryController {
                 boolean isTrue = auth.signIN();
                 while (isTrue) {
                     TraceLog.info(Utility.printCurrentLine(), "===============================================");
-                    TraceLog.info(Utility.printCurrentLine(), "1. change bakery status");
-                    TraceLog.info(Utility.printCurrentLine(), "2. check stock");
-                    TraceLog.info(Utility.printCurrentLine(), "3. re-stock");
-                    TraceLog.info(Utility.printCurrentLine(), "4. Edit product/add new product");
-                    TraceLog.info(Utility.printCurrentLine(), "5. check billbook");
-                    TraceLog.info(Utility.printCurrentLine(), "6. Log-out");
+                    TraceLog.info(Utility.printCurrentLine(), "1. change bakery status");   // Y
+                    TraceLog.info(Utility.printCurrentLine(), "2. check stock");            // Y
+                    TraceLog.info(Utility.printCurrentLine(), "3. re-stock");               // Y
+                    TraceLog.info(Utility.printCurrentLine(), "4. Add new product");        // Y
+                    TraceLog.info(Utility.printCurrentLine(), "5. check billbook");         // N
+                    TraceLog.info(Utility.printCurrentLine(), "6. Log-out");                // Y
                     option = Utility.getIntInput();
                     TraceLog.info(Utility.printCurrentLine(), "===============================================");
                     if (option == 1) {
@@ -47,8 +47,10 @@ public class BakeryController {
                             TraceLog.info(Utility.printCurrentLine(), "Bakery is now OPEN");
                         }
                     } else if (option == 2) {
-                        stock.show();
+                        // stock.show();
+                        DatabaseService.showProductsToOwner();
                     } else if (option == 3) {
+                        DatabaseService.showProductsToOwner();
                         stock.reStock();
                     } else if (option == 4) {
                         stock.addProduct();
@@ -57,21 +59,21 @@ public class BakeryController {
                     } else if (option == 6) {
                         break;
                     }
-
                 }
             } else if (option == 2) {
                 if(isOpen){
                     TraceLog.info(Utility.printCurrentLine(), "-----------------------WEL-COME TO FRESH OVEN BAKERS---------------------");
                     while (true){
                         TraceLog.info(Utility.printCurrentLine(), "===================================================================");
-                        TraceLog.info(Utility.printCurrentLine(), "1. show all products.");
-                        TraceLog.info(Utility.printCurrentLine(), "2. Show cart.");
-                        TraceLog.info(Utility.printCurrentLine(), "3. checkout.");
+                        TraceLog.info(Utility.printCurrentLine(), "1. show all products.");    // Y 
+                        TraceLog.info(Utility.printCurrentLine(), "2. Show cart.");            // Y
+                        TraceLog.info(Utility.printCurrentLine(), "3. checkout.");             // N
                         TraceLog.info(Utility.printCurrentLine(), "====================================================================");
                         option = Utility.getIntInput();
                         while(true){
                             if (option == 1) {
-                            boolean allowToAddInCart = stock.showToCustomer();
+                            // boolean allowToAddInCart = stock.showToCustomer();
+                            boolean allowToAddInCart = DatabaseService.showProductsToCustomer();
                             if (allowToAddInCart) myCart.addToCart(stock);
                                 break;
                             } else if (option == 2) {

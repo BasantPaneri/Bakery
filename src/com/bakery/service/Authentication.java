@@ -6,14 +6,15 @@ import src.com.bakery.utility.Utility;
 
 public class Authentication {
 
-    User u = new User("Bakery Ji", "bakery@gmail.com", "12345");
+    User u = new User("Bakery Ji", "bakery@gmail.com", "","12345");
     public boolean signIN(){
         boolean isTrue = false;
         String email = Utility.getStringInput("email");
+        String temp = "";
         TraceLog.debbug(Utility.printCurrentLine(), email);
         String password = Utility.getStringInput("password");
         while(true){
-            if(u.getEmail().equals(email) && u.getPassword().equals(password)){
+            if(u.getEmail().equals(email) || u.getTemp().equals(temp) && u.getPassword().equals(password)){
                 TraceLog.info(Utility.printCurrentLine(), "==============WEL-COME " + u.getName() +"==============");
                 isTrue = true;
                 break;

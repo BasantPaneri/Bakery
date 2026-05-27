@@ -241,6 +241,9 @@ public class DBController1 {
     //     } catch (Exception e) {
     //         e.printStackTrace();
     //     }
-    DatabaseService.addNewProduct(new Products("burger", 150, 2, 79));
+    // DatabaseService.addNewProduct(new Products("burger", 150, 2, 79));
+            // TraceLog.error(Utility.printCurrentLine(), "Exception while re Stocking ..... ");
+            // e.printStackTrace();
+        
     } 
 }

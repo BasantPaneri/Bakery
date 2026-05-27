@@ -2,8 +2,6 @@ package src.com.bakery.service;
 
 import java.util.Date;
 
-import javax.swing.text.Utilities;
-
 import src.com.bakery.model.*;
 import src.com.bakery.utility.TraceLog;
 import src.com.bakery.utility.Utility;
@@ -45,10 +43,13 @@ public class BillService {
 
             Cart currentCart = DatabaseService.cart[i];
             double amount = currentCart.getProduct().getPrice() * currentCart.getMyQuantity();
-            int billInd = DatabaseService.billNumber;
-            DatabaseService.bill[billInd] = new Bill(++DatabaseService.billNumber , name, DatabaseService.cart[i].getMyQuantity(), DatabaseService.cart[i].getProduct(),amount);
+
+            Bill bill =  new Bill(1, name, currentCart.getProduct().getId(), currentCart.getMyQuantity(), amount);
             sum += amount ;
-            printCurrectProductDetails(i+1+"", currentCart.getProduct().getName()+"", currentCart.getMyQuantity()+"", currentCart.getProduct().getPrice()+"", amount+"");
+
+            int rs = DatabaseService.punchEntryInBill(bill);
+            
+            printCurrectProductDetails(i+1+"", currentCart.getProduct().getName(), currentCart.getMyQuantity()+"", currentCart.getProduct().getPrice()+"", amount+"");
             DatabaseService.cart[i] = null;
         }
 
@@ -70,7 +71,7 @@ public class BillService {
         String s = " ".repeat(4-i.length()) + i;
         String p =  " ".repeat(15-productName.length()) + productName;
         String q =  " ".repeat(4-qty.length()) + qty;
-        String r =  " ".repeat(4-rate.length()) + rate;
+        String r =  " ".repeat(10-rate.length()) + rate;
         String a =  amt;
         TraceLog.info(Utility.printCurrentLine(), "|"+s+"|"+p+"|"+q+"|"+r+"|"+a+"|");
     }
