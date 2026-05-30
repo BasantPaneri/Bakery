@@ -17,7 +17,6 @@ public class MyCartService {
             int i = 0 ; 
             Products p = null;
             TraceLog.info(Utility.printCurrentLine(), "--------------------->"+products.length+ "item Requested '"+ addedItem+"'");
-            
             for (i = 0; i < products.length ; i++) {
                 if(products[i] == null) break;
                 TraceLog.info(Utility.printCurrentLine(), "--------------------->"+products[i].getName().equalsIgnoreCase(addedItem) + "product "+products[i].toString());
@@ -31,6 +30,7 @@ public class MyCartService {
                 int quantityPicked = getAvavilableProduct( p, itemQuantity);
                 DatabaseService.cart[DatabaseService.itemCount++] = new Cart(p, quantityPicked);
                 TraceLog.info(Utility.printCurrentLine(),quantityPicked + " "+ products[i].getName()+" added");
+
                 return;
             }
             TraceLog.info(Utility.printCurrentLine(),"Product Not available");

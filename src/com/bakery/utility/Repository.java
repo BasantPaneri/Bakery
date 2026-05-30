@@ -12,4 +12,5 @@ public class Repository {
     public static String GET_ALL_BILL = "SELECT * FROM bill"; 
     public static String DESC_BILL_TABLE = "DESC bill";
     public static String GET_ALL_PRODUCT_AND_BILL_DETAILS_WITH_PID = "SELECT b.id, b.customerName, p.name, b.quantity, p.price, b.quantity * p.price AS total FROM bill b JOIN products p ON b.P_Id = p.id";
+    // public static string 
 }

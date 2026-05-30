@@ -98,6 +98,16 @@ public class DatabaseService {
         return rs;
     }
 
+    // public static void soldProducts(Bill bill){
+    //     try {
+    //         con = getConnection();
+    //         Statement stmt = con.createStatement();
+    //         ResultSet rs =stmt.executeUpdate("update products set quantity = quantity - " + bill.getQuantity() + "where pid = " + bill.getpId());
+    //     } catch (Exception e) {
+    //         // TODO: handle exception
+    //     }
+    // }
+
     public static void showProductsToOwner(){
         try {
             String array[] = new String[20];

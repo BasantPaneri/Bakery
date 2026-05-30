@@ -11,7 +11,6 @@ public class BillService {
     public double getTotalRevenue() {
         return totalRevenue;
     }
-    
 
     public void generateBill(MyCartService myCartService){
         if(DatabaseService.itemCount == 0 ){
@@ -75,7 +74,4 @@ public class BillService {
         String a =  amt;
         TraceLog.info(Utility.printCurrentLine(), "|"+s+"|"+p+"|"+q+"|"+r+"|"+a+"|");
     }
-
-    
-
 }
