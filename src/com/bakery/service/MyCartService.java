@@ -16,10 +16,11 @@ public class MyCartService {
             Products [] products = DatabaseService.getProducts();
             int i = 0 ; 
             Products p = null;
-            TraceLog.info(Utility.printCurrentLine(), "--------------------->"+products.length);
-
+            TraceLog.info(Utility.printCurrentLine(), "--------------------->"+products.length+ "item Requested '"+ addedItem+"'");
+            
             for (i = 0; i < products.length ; i++) {
                 if(products[i] == null) break;
+                TraceLog.info(Utility.printCurrentLine(), "--------------------->"+products[i].getName().equalsIgnoreCase(addedItem) + "product "+products[i].toString());
                 if (products[i].getName().equalsIgnoreCase(addedItem)){
                     p = products[i];
                     break;

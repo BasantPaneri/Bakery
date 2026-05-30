@@ -48,10 +48,13 @@ public class TraceLog {
     }
 
     public static void debbug(String metaInfo , String message) {
-        if(message == null ) message = "";
-        if (metaInfo == null) metaInfo = " ";
-        if (metaInfo != null) metaInfo = metaInfo + " ".repeat(indentation - metaInfo.length());
-        // System.out.println("log.debbug --> [--- " + metaInfo + " ---] : " + message );
-        System.out.println("log.debbug-[" + metaInfo + "]: " + message );
+        boolean isDebug=false;
+       if (isDebug) {
+            if(message == null ) message = "";
+            if (metaInfo == null) metaInfo = " ";
+            if (metaInfo != null) metaInfo = metaInfo + " ".repeat(indentation - metaInfo.length());
+            // System.out.println("log.debbug --> [--- " + metaInfo + " ---] : " + message );
+            System.out.println("log.debbug-[" + metaInfo + "]: " + message );
+       }
     }
 }

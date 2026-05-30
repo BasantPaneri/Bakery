@@ -44,9 +44,9 @@ public class BillService {
             Cart currentCart = DatabaseService.cart[i];
             double amount = currentCart.getProduct().getPrice() * currentCart.getMyQuantity();
 
-            Bill bill =  new Bill(1, name, currentCart.getProduct().getId(), currentCart.getMyQuantity(), amount);
+            Bill bill =  new Bill(1, name, currentCart.getMyQuantity(), currentCart.getProduct().getId(), amount);
+            TraceLog.debbug(Utility.printCurrentLine(), bill.toString());
             sum += amount ;
-
             int rs = DatabaseService.punchEntryInBill(bill);
             
             printCurrectProductDetails(i+1+"", currentCart.getProduct().getName(), currentCart.getMyQuantity()+"", currentCart.getProduct().getPrice()+"", amount+"");

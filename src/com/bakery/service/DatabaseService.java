@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 
 import src.com.bakery.model.Bill;
 import src.com.bakery.model.Cart;
@@ -161,10 +160,10 @@ public class DatabaseService {
 
     public static Products[] getProducts(){
         Products[] products = new Products[PRODUCT_ARRAY_SIZE];
+        int count = 0 ;
         try {
             Statement stmt = con.createStatement();        
             ResultSet rs = stmt.executeQuery(Repository.GET_ALL_PRODUCT);
-            int count = 0 ;
             while (rs.next()) {
                 products[count++ ] = getProductFromResultSet(rs);
             }
@@ -188,7 +187,6 @@ public class DatabaseService {
             product.setName(name);
             product.setCapacity(capacity);
             product.setPrice(price);
-            TraceLog.info(Utility.printCurrentLine(), product.toString());
         } catch (Exception e) {
             TraceLog.error(Utility.printCurrentLine(), "Exception while parcing DB product to Product..... ");
             e.printStackTrace();
@@ -198,6 +196,7 @@ public class DatabaseService {
     
     public static int punchEntryInBill(Bill bill){
         int rs = 0;
+        System.out.println("-----------------------------------------------------------------Product Id = " + bill.getpId());
         try {
             con = getConnection();
             PreparedStatement prep = con.prepareStatement(Repository.INSERT_BILL);
@@ -206,10 +205,12 @@ public class DatabaseService {
             prep.setInt(2, bill.getpId());
             prep.setInt(3, bill.getQuantity());
             prep.setDouble(4, bill.getAmount());
-            TraceLog.error(Utility.printCurrentLine(), prep+" || "+bill.toString());
-            
             rs = prep.executeUpdate();
-
+            // prep.setString(1, bill.getCustomerName());
+            // prep.setInt(2, bill.getpId());
+            // prep.setInt(3, bill.getQuantity());
+            // prep.setDouble(4, bill.getAmount());
+            // rs = prep.executeUpdate();
         } catch (Exception e) {
             TraceLog.error(Utility.printCurrentLine(), "Exception while adding bill Entry in DB ..... ");
             e.printStackTrace();

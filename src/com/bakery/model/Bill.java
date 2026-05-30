@@ -11,11 +11,11 @@ public class Bill {
     private String productName;
     
     public Bill(){}
-    public Bill(int id, String customerName, int quantity, int pId, double amount) {
+    public Bill(int id, String customerName, int quantity,int pId, double amount) {
         this.id = id;
         this.customerName = customerName;
-        this.quantity = quantity;
         this.pId = pId;
+        this.quantity = quantity;
         this.amount = amount;
     }
     
