@@ -33,7 +33,8 @@ public class BakeryController {
                     TraceLog.info(Utility.printCurrentLine(), "3. re-stock");               // Y
                     TraceLog.info(Utility.printCurrentLine(), "4. Add new product");        // Y
                     TraceLog.info(Utility.printCurrentLine(), "5. check billbook");         // N
-                    TraceLog.info(Utility.printCurrentLine(), "6. Log-out");                // Y
+                    TraceLog.info(Utility.printCurrentLine(), "6. Reset shop");             // Y
+                    TraceLog.info(Utility.printCurrentLine(), "7. Log-out");                // Y
                     option = Utility.getIntInput();
                     TraceLog.info(Utility.printCurrentLine(), "===============================================");
                     if (option == 1) {
@@ -57,6 +58,19 @@ public class BakeryController {
                     } else if (option == 5) {
                         stock.showBillBook(billService);
                     } else if (option == 6) {
+                        TraceLog.info(Utility.printCurrentLine(), "enter YES to reset full shop.");
+                        String response = Utility.getStringInput("Response");
+                        if (response.equalsIgnoreCase("yes") || response.equalsIgnoreCase("no") ) {
+                            if (response.equalsIgnoreCase("yes")){
+                                DatabaseService.resetShop();
+                            }else if (response.equalsIgnoreCase("no")){
+                                break;
+                            }
+                        } else {
+                            TraceLog.info(Utility.printCurrentLine(), "-------------INVALID INPUT!-----------");
+                        }
+                        
+                    }else if (option == 7) {
                         break;
                     }
                 }

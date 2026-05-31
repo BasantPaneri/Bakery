@@ -46,6 +46,7 @@ public class BillService {
             Bill bill =  new Bill(1, name, currentCart.getMyQuantity(), currentCart.getProduct().getId(), amount);
             TraceLog.debbug(Utility.printCurrentLine(), bill.toString());
             sum += amount ;
+            DatabaseService.soldProducts(bill);
             int rs = DatabaseService.punchEntryInBill(bill);
             
             printCurrectProductDetails(i+1+"", currentCart.getProduct().getName(), currentCart.getMyQuantity()+"", currentCart.getProduct().getPrice()+"", amount+"");

@@ -50,7 +50,7 @@ public class DatabaseService {
             con = getConnection();
             Statement stmt = con.createStatement();
             //1. create product
-            rs = stmt.executeUpdate("CREATE TABLE products (id INT PRIMARY KEY AUTO_INCREMENT , name VARCHAR(20) , capacity INT , quantity INT , price DOUBLE)");
+            rs = stmt.executeUpdate(Repository.CREATE_products_TABLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,7 +58,7 @@ public class DatabaseService {
             con = getConnection();
             Statement stmt = con.createStatement();
             //2. craate bill - product ref 
-            rs = stmt.executeUpdate("CREATE TABLE bill(id INT PRIMARY KEY AUTO_INCREMENT, customerName VARCHAR(20), P_Id INT, quantity INT, amount DOUBLE, FOREIGN KEY (P_Id) REFERENCES products(id))");
+            rs = stmt.executeUpdate(Repository.CREATE_bill_TABLE);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,15 +98,16 @@ public class DatabaseService {
         return rs;
     }
 
-    // public static void soldProducts(Bill bill){
-    //     try {
-    //         con = getConnection();
-    //         Statement stmt = con.createStatement();
-    //         ResultSet rs =stmt.executeUpdate("update products set quantity = quantity - " + bill.getQuantity() + "where pid = " + bill.getpId());
-    //     } catch (Exception e) {
-    //         // TODO: handle exception
-    //     }
-    // }
+    public static void soldProducts(Bill bill){
+        try {
+            con = getConnection();
+            Statement stmt = con.createStatement();
+            int rs = stmt.executeUpdate("update products set quantity = quantity - " + bill.getQuantity() + " where id = " + bill.getpId());
+        } catch (Exception e) {
+            TraceLog.error(Utility.printCurrentLine(), "Exception while selling product from DB ..... ");
+            e.printStackTrace();
+        }
+    }
 
     public static void showProductsToOwner(){
         try {
@@ -260,6 +261,20 @@ public class DatabaseService {
             e.printStackTrace();
         }
         return bill;
+    }
+
+    public static int resetShop(){
+        int rs = 0;
+        try {
+            con = getConnection();
+            Statement stmt = con.createStatement(); 
+            rs = stmt.executeUpdate(Repository.DROP_TABLE_bill);
+            int rst = stmt.executeUpdate(Repository.DROP_TABLE_products);
+        } catch (Exception e) {
+            TraceLog.error(Utility.printCurrentLine(), "Exception while reseting shop ..... ");
+            e.printStackTrace();
+        }
+        return rs;
     }
 
 }
